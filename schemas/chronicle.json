@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Werewolf Chronicle",
+  "type": "object",
+  "required": ["meta", "rounds", "global_summary"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["players", "seats"],
+      "properties": {
+        "players": {"type": "integer", "const": 6},
+        "seats": {
+          "type": "array",
+          "items": {"type": "integer"},
+          "minItems": 6,
+          "maxItems": 6
+        }
+      }
+    },
+    "rounds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["round", "night", "day"],
+        "properties": {
+          "round": {"type": "integer", "minimum": 1},
+          "night": {
+            "type": "object",
+            "required": ["events", "summary_5"],
+            "properties": {
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["t"],
+                  "properties": {
+                    "t": {"type": "string"},
+                    "wolves": {
+                      "type": "array",
+                      "items": {"type": "integer"}
+                    },
+                    "by": {"type": "string"},
+                    "target": {"type": ["integer", "array", "null"]},
+                    "used_heal": {"type": "boolean"},
+                    "used_poison": {"type": "boolean"},
+                    "poison_target": {"type": ["integer", "null"]},
+                    "notes": {"type": "string"}
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "summary_5": {
+                "type": "array",
+                "items": {"type": "string"},
+                "maxItems": 5
+              }
+            }
+          },
+          "day": {
+            "type": "object",
+            "required": ["order", "utterances", "votes", "summary_10"],
+            "properties": {
+              "order": {
+                "type": "array",
+                "items": {"type": "integer"},
+                "minItems": 1
+              },
+              "utterances": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["seat", "idx", "text", "one_line"],
+                  "properties": {
+                    "seat": {"type": "integer"},
+                    "idx": {"type": "integer"},
+                    "text": {"type": "string"},
+                    "one_line": {"type": "string"}
+                  }
+                }
+              },
+              "votes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["from", "to"],
+                  "properties": {
+                    "from": {"type": "integer"},
+                    "to": {"type": ["integer", "null"]}
+                  }
+                }
+              },
+              "lynch": {"type": ["integer", "null"]},
+              "summary_10": {
+                "type": "array",
+                "items": {"type": "string"},
+                "maxItems": 10
+              }
+            }
+          }
+        }
+      }
+    },
+    "global_summary": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 3,
+      "maxItems": 6
+    }
+  }
+}

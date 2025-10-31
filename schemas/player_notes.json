@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Player Private Notes",
+  "type": "object",
+  "required": ["players"],
+  "properties": {
+    "players": {
+      "type": "object",
+      "patternProperties": {
+        "^[1-6]$": {
+          "type": "object",
+          "required": ["role_private", "notes", "trust"],
+          "properties": {
+            "role_private": {
+              "type": "object",
+              "properties": {
+                "is_wolf": {"type": "boolean"},
+                "wolf_mates": {
+                  "type": "array",
+                  "items": {"type": "integer"}
+                },
+                "potions": {
+                  "type": "object",
+                  "properties": {
+                    "heal_left": {"type": "integer", "minimum": 0, "maximum": 1},
+                    "poison_left": {"type": "integer", "minimum": 0, "maximum": 1}
+                  }
+                }
+              },
+              "additionalProperties": true
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["r", "d", "bullets"],
+                "properties": {
+                  "r": {"type": "integer", "minimum": 1},
+                  "d": {"type": "string", "enum": ["day", "night", "postgame"]},
+                  "bullets": {
+                    "type": "array",
+                    "items": {"type": "string", "maxLength": 32},
+                    "minItems": 1,
+                    "maxItems": 5
+                  }
+                }
+              }
+            },
+            "trust": {
+              "type": "object",
+              "patternProperties": {
+                "^[1-6]$": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              },
+              "minProperties": 6,
+              "maxProperties": 6
+            }
+          }
+        }
+      }
+    }
+  }
+}
