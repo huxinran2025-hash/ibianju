@@ -1,0 +1,20 @@
+---
+# 目标
+你是本仓库的云端AI工程师（Codex）。遵循以下固定流程：
+1) 为每个子任务创建 feature 分支：feat/<topic>-<short>
+2) 写/改代码 + 文档 + 单测（tests/）
+3) 本地运行假定 py3.11；保持与 .github/workflows/ci.yml 一致
+4) 通过后提交 PR，标题以 feat/fix/chore 开头，附变更与验证步骤
+5) 长提示词只许放在 /game/prompts.py，业务代码只参数化引用
+- /game/gm.py：唯一状态机和时间线；写入 chronicle 纪要与 player_notes
+- /game/chronicle.py：公共日志读写封装（只增不改）
+- /game/llm.py：LLM 与上下文组装（加载 chronicle + 私有 notes + turn_info）
+- /tests：新增或修改功能必须增加单测（至少1个）
+- 打通 6人局（夜晚→白天→投票→结算）最小流程
+- 实现 chronicle.jsonl 与 player_notes.json 快照
+- prompts.build_* 最小提示词与快照测试
+- CLI 入口或极简 HTTP 入口（/start, /next）
+- 提 PR 后自检：ruff 通过、pytest 通过、README 更新“如何运行”
+
+alwaysApply: true
+---
