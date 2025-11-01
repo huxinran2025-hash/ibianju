@@ -1,0 +1,4 @@
+1. Create the `tests/` package with `tests/test_prompts.py` and `tests/test_engine.py`, each containing a trivial assertion (e.g., `assert True`).
+2. Add the `cursor/` directory with `cursor/rule1.mdc` that records the provided bootstrap plan verbatim.
+3. Under `game/`, add the missing modules `stage_opening.py`, `tts.py`, and `sfx_bgm.py`, each containing a docstring, a `# TODO` comment, and a `pass` statement.
+4. Create the `game/ui/web/README.md`, `game/ui/assets/README.md`, and `game/memory/README.md` placeholders with a short note to mark the directories.
