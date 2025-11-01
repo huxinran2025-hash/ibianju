@@ -68,8 +68,8 @@ class GameMaster:
             wid,
             "stage_night_witch.md",
             killed_list=current_kill_targets(),
-            heal_left=potions(wid).heal,
-            poison_left=potions(wid).poison,
+            heal_left=potions(wid).heal_left,
+            poison_left=potions(wid).poison_left,
         )
         apply_witch_actions()
 
