@@ -10,8 +10,10 @@ class GameMaster:
         self.chronicle = init_chronicle()
         self.players = init_player_notes()
         self.sessions = {}
+        self.seats = []
 
     def setup_sessions(self, seating_plan):
+        self.seats = seating_plan
         for seat in seating_plan:
             persona = seat.persona
             dialect = seat.dialect
@@ -24,7 +26,7 @@ class GameMaster:
         self._wolf_intro()
 
     def _wolf_intro(self):
-        wolf_ids = [s.id for s in seats if s.role == "wolf"]
+        wolf_ids = [s.id for s in self.seats if s.role == "wolf"]
         for wid in wolf_ids:
             send_stage(wid, "stage_wolf_intro.md", wolf_mates=[i for i in wolf_ids if i != wid])
 
@@ -119,7 +121,7 @@ class GameMaster:
     def _postgame(self):
         result = compute_result()
         digest = build_postgame_digest(self.chronicle)
-        for seat in seats:
+        for seat in self.seats:
             send_stage(seat, "stage_postgame_context.md", result=result, final_transcript_digest=digest, your_notes_tail=tail_notes(seat))
             send_stage(seat, "stage_postgame_roundup.md")
             store_roundup(seat)
